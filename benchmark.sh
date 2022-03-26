@@ -87,6 +87,14 @@ instantiate_2_3_vs_2_7() {
 # 'instantiate $nix_2_3 "$sys1"' ran
 #   1.02 ± 0.02 times faster than 'instantiate $nix_2_7 "$sys1"'
 
+nix_eval_vs_instantiate_eval() {
+    benchmark \
+        'instantiateEval $nix_2_7 "$sys1"' \
+        'nixEval $nix_2_7 "$sys1"'
+}
+# 'instantiateEval $nix_2_7 "$sys1"' ran
+#   1.38 ± 0.04 times faster than 'nixEval $nix_2_7 "$sys1"'
+
 run() {
     echo "$@"
     echo "----------------------------------"
@@ -98,6 +106,7 @@ run_all() {
     # run daemon_store_vs_local_store
     run instantiate_eval_2_3_vs_2_7
     run instantiate_2_3_vs_2_7
+    run nix_eval_vs_instantiate_eval
 }
 
 # Run args
